@@ -11,13 +11,13 @@ URL:		http://www.redland.opensource.ac.uk/
 BuildRequires:	autoconf >= 2.53
 BuildRequires:	automake >= 1:1.7
 BuildRequires:	db-devel
-BuildRequires:	libraptor-devel >= 1.4.2
+BuildRequires:	libraptor-devel >= 1.4.3
 BuildRequires:	libtool
 BuildRequires:	mysql-devel >= 3.23.58
 BuildRequires:	openssl-devel >= 0.9.7d
-BuildRequires:	rasqal-devel >= 1:0.9.3
-Requires:	libraptor >= 1.4.2
-Requires:	rasqal >= 1:0.9.3
+BuildRequires:	rasqal-devel >= 1:0.9.6
+Requires:	libraptor >= 1.4.3
+Requires:	rasqal >= 1:0.9.6
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -45,9 +45,9 @@ Summary(pl):	Pliki nag³ówkowe biblioteki Redland RDF
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	db-devel
-Requires:	libraptor-devel >= 1.4.2
+Requires:	libraptor-devel >= 1.4.3
 Requires:	mysql-devel >= 3.23.58
-Requires:	rasqal-devel >= 1:0.9.3
+Requires:	rasqal-devel >= 1:0.9.6
 
 %description devel
 Headers for Redland RDF library.
