@@ -1,23 +1,23 @@
-# TODO: various language support (java, perl, php, ruby, tcl)
 Summary:	Redland - a library that provides a high-level interface for RDF
 Summary(pl):	Redland - biblioteka udostêpniaj±ca wysokopoziomowy interfejs do RDF
 Name:		redland
-Version:	0.9.16
-Release:	0.1
-License:	LGPL v2 or MPL 1.1
+Version:	0.9.18
+Release:	1
+License:	LGPL v2 or GPL v2 or MPL 1.1
 Group:		Libraries
 Source0:	http://www.redland.opensource.ac.uk/dist/source/%{name}-%{version}.tar.gz
-# Source0-md5:	d78c768825df2727aec8336fe9772d8d
-Patch0:		%{name}-system-raptor.patch
+# Source0-md5:	64ab895d0d9f5ad8540357e26dc46253
 URL:		http://www.redland.opensource.ac.uk/
 BuildRequires:	autoconf >= 2.53
-BuildRequires:	automake >= 1.6
+BuildRequires:	automake >= 1.7
 BuildRequires:	db-devel
-BuildRequires:	libraptor-devel >= 1.2.0
+BuildRequires:	libraptor-devel >= 1.3.0
 BuildRequires:	libtool
 BuildRequires:	mysql-devel >= 3.23.58
 BuildRequires:	openssl-devel >= 0.9.7d
-BUildRequires:	rpm-pythonprov
+BuildRequires:	rasqal-devel >= 1:0.9.2
+Requires:	libraptor >= 1.3.0
+Requires:	rasqal >= 1:0.9.2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -45,8 +45,9 @@ Summary(pl):	Pliki nag³ówkowe biblioteki Redland RDF
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	db-devel
-Requires:	libraptor-devel >= 1.2.0
+Requires:	libraptor-devel >= 1.3.0
 Requires:	mysql-devel >= 3.23.58
+Requires:	rasqal-devel >= 1:0.9.2
 
 %description devel
 Headers for Redland RDF library.
@@ -66,18 +67,6 @@ Static Redland RDF library.
 %description static -l pl
 Statyczna biblioteka Redland RDF.
 
-%package rapper
-Summary:	Raptor RDF parser test program with Redland RDF support
-Summary(pl):	Testowy program parsera Raptor RDF ze wsparciem dla Redland RDF
-Group:		Applications
-Requires:	%{name} = %{version}-%{release}
-
-%description rapper
-Raptor RDF parser test program with Redland RDF support.
-
-%description rapper -l pl
-Testowy program parsera Raptor RDF ze wsparciem dla Redland RDF.
-
 %package -n python-redland
 Summary:	Python bindings for Redland RDF library
 Summary(pl):	Pythonowy interfejs do biblioteki Redland RDF
@@ -93,7 +82,6 @@ Pythonowy interfejs do biblioteki Redland RDF
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 %{__libtoolize}
@@ -101,36 +89,16 @@ Pythonowy interfejs do biblioteki Redland RDF
 %{__autoconf}
 %{__autoheader}
 %{__automake}
-cd raptor
-%{__aclocal}
-%{__autoconf}
-%{__autoheader}
-# don't use -f here
-automake -a -c --foreign
-cd ..
 %configure \
 	--with-raptor=system \
-	--with-python
-
-#	--with-java --with-jdk=/usr/lib/java  -- builds, but can be only optional
-#	--with-perl  -- needs INSTALLDIRS=vendor in perl/Makefile.am
-#	--with-ruby  -- missing install -d before installing *.so
-#	--with-tcl  -- missing install -d before installing *.so
-#	--with-php  -- cannot find config.h
-#	--with-ecma-cli=mono  -- TODO
+	--with-rasqal=system
 
 %{__make}
-
-# build rapper with Redland/RDF support
-%{__make} -C raptor
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT
-
-%{__make} install -C raptor \
 	DESTDIR=$RPM_BUILD_ROOT
 
 %clean
@@ -150,13 +118,15 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%doc docs/{README.html,overview.png,api}
+%doc docs/{README.html,storage.html,api}
 %attr(755,root,root) %{_bindir}/redland-config
 %attr(755,root,root) %{_libdir}/librdf.so
 %{_libdir}/librdf.la
 %{_includedir}/librdf.h
 %{_includedir}/rdf_*.h
 %{_includedir}/redland.h
+%dir %{_datadir}/redland
+%{_datadir}/redland/Redland.i
 %{_pkgconfigdir}/redland.pc
 %{_mandir}/man1/redland-config.1*
 %{_mandir}/man3/redland.3*
@@ -164,13 +134,3 @@ rm -rf $RPM_BUILD_ROOT
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/librdf.a
-
-%files rapper
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/rapper
-%{_mandir}/man1/rapper.1*
-
-%files -n python-redland
-%defattr(644,root,root,755)
-%{py_sitedir}/RDF.py
-%attr(755,root,root) %{py_sitedir}/Redland.so
