@@ -1,43 +1,39 @@
---- redland-0.9.13/configure.ac.orig	2003-01-31 12:07:51.000000000 +0100
-+++ redland-0.9.13/configure.ac	2003-05-22 23:10:38.000000000 +0200
-@@ -629,8 +629,7 @@
-     PARSER_SRCS="$PARSER_SRCS rdf_parser_$parser.c"
+--- redland-0.9.14/examples/Makefile.am.orig	2003-09-02 01:44:08.000000000 +0200
++++ redland-0.9.14/examples/Makefile.am	2003-10-07 22:32:26.416124208 +0200
+@@ -30,13 +30,11 @@
  
-     if test $parser = raptor; then
--      LIBRDF_INTERNAL_CPPFLAGS="-I\$(top_srcdir)/raptor $LIBRDF_INTERNAL_CPPFLAGS"
--      LIBRDF_INTERNAL_LIBS="\$(top_builddir)/raptor/libraptor.la $LIBRDF_INTERNAL_LIBS"
-+      LIBRDF_INTERNAL_LIBS="-lraptor $LIBRDF_INTERNAL_LIBS"
-     fi
  
-     n=HAVE_${uname}_RDF_PARSER
---- redland-0.9.13/Makefile.am.orig	2003-02-12 18:55:10.000000000 +0100
-+++ redland-0.9.13/Makefile.am	2003-05-22 23:14:29.000000000 +0200
-@@ -23,7 +23,7 @@
- noinst_SCRIPTS = redland-src-config
+ redland_dbus_SOURCES = redland_dbus.c
+-redland_dbus_LDADD=$(top_builddir)/librdf/librdf.la $(top_builddir)/raptor/libraptor.la
++redland_dbus_LDADD=@LIBRDF_LDFLAGS@ @LIBRDF_LIBS@ $(top_builddir)/librdf/librdf.la @LIBRDF_INTERNAL_LIBS@
+ redland_dbus_CFLAGS=$(shell pkg-config --cflags dbus-1 glib-2.0 dbus-glib-1 gthread)
+ redland_dbus_LDFLAGS=$(shell pkg-config --libs dbus-1 glib-2.0 dbus-glib-1 gthread)
+-redland_dbus_DEPENDENCIES = @LIBRDF_LDFLAGS@ $(top_builddir)/librdf/librdf.la $(top_builddir)/raptor/libraptor.la
  
- # Subdirectories to build/install etc.
--SUBDIRS=raptor librdf examples utils demos @SD@
-+SUBDIRS=librdf raptor examples utils demos @SD@
- CONFIG_SUBDIRS=raptor
- # Subdirectories to use for distribution
- DIST_SUBDIRS=librdf docs examples \
---- redland-0.9.13/raptor/Makefile.am.orig	2003-08-23 23:13:37.000000000 +0200
-+++ redland-0.9.13/raptor/Makefile.am	2003-09-07 01:03:32.647791880 +0200
-@@ -20,29 +20,18 @@
+ # redland_gui_SOURCES = redland_gui.c
+-# redland_gui_LDADD=$(top_builddir)/librdf/librdf.la $(top_builddir)/raptor/libraptor.la
++# redland_gui_LDADD=@LIBRDF_LDFLAGS@ @LIBRDF_LIBS@ $(top_builddir)/librdf/librdf.la @LIBRDF_INTERNAL_LIBS@
+ # redland_gui_CFLAGS=$(shell pkg-config --cflags gtk+-2.0)
+ # redland_gui_LDFLAGS=$(shell pkg-config --libs gtk+-2.0)
+-# redland_gui_DEPENDENCIES = @LIBRDF_LDFLAGS@ $(top_builddir)/librdf/librdf.la $(top_builddir)/raptor/libraptor.la
+--- redland-0.9.14/raptor/Makefile.am.orig	2003-09-08 16:24:25.000000000 +0200
++++ redland-0.9.14/raptor/Makefile.am	2003-10-07 22:41:23.060541856 +0200
+@@ -20,28 +20,23 @@
  
  
  bin_PROGRAMS = rapper
 -bin_SCRIPTS = raptor-config
-+noinst_SCRIPTS = raptor-config raptor-src-config
- noinst_SCRIPTS = raptor-src-config
+-noinst_SCRIPTS = raptor-src-config
 -lib_LTLIBRARIES = libraptor.la
++noinst_SCRIPTS = raptor-config raptor-src-config
  
--include_HEADERS = raptor.h ntriples.h
-+noinst_HEADERS = raptor.h ntriples.h raptor_internal.h win32_config.h
+-include_HEADERS = raptor.h
++noinst_HEADERS = raptor.h raptor_internal.h win32_config.h
  
 -noinst_HEADERS = raptor_internal.h win32_config.h
 -
 -man_MANS = rapper.1 libraptor.3 raptor-config.1
++EXTRA_MANS = libraptor.3 raptor-config.1
 +man_MANS = rapper.1
  
  rapper_SOURCES = rdfdump.c raptor_getopt.h
@@ -48,108 +44,64 @@
  EXTRA_rapper_SOURCES = getopt.c
  
 -libraptor_la_SOURCES = raptor_parse.c ntriples_parse.c \
--raptor_uri.c raptor_libxml.c raptor_win32.c raptor_locator.c \
--raptor_namespace.c raptor_qname.c raptor_general.c raptor_utf8.c \
--raptor_www.c raptor_set.c raptor_xml.c raptor_sax2.c \
--raptor_identifier.c raptor_xml_writer.c
++EXTRA_SOURCES = raptor_parse.c ntriples_parse.c \
+ raptor_uri.c raptor_libxml.c raptor_win32.c raptor_locator.c \
+ raptor_namespace.c raptor_qname.c raptor_general.c raptor_utf8.c \
+ raptor_www.c raptor_set.c raptor_xml.c raptor_sax2.c \
+ raptor_identifier.c raptor_xml_writer.c
 -libraptor_la_LDFLAGS = -version-info @RAPTOR_LIBTOOL_VERSION@
 -libraptor_la_LIBADD = @LTLIBOBJS@
--
+ 
  EXTRA_DIST=ChangeLog \
  README      NEWS      LICENSE.txt \
- README.html NEWS.html LICENSE.html INSTALL.html \
-@@ -104,23 +104,23 @@
- # Some people need a little help ;-)
- test: check
+@@ -58,10 +53,6 @@
  
+ 
+ 
+-SUBDIRS= tests win32 examples
+-
+-TESTS=raptor_uri_test raptor_namespace_test strcasecmp_test \
+-raptor_www_test raptor_set_test raptor_xml_test
+ 
+ CLEANFILES=$(TESTS)
+ 
+@@ -109,29 +100,7 @@
+ @MAINT@	-groff -man -Thtml -P-l $< | tidy -asxml -wrap 1000 2>/dev/null | perl $(srcdir)/fix-groff-xhtml $@
+ 
+ pkgconfigdir = $(libdir)/pkgconfig
+-pkgconfig_DATA = raptor.pc
+-
+-
+-# Some people need a little help ;-)
+-test: check
+-
 -raptor_uri_test: $(srcdir)/raptor_uri.c libraptor.la
 -	$(LINK) $(DEFS) $(CPPFLAGS) -I$(srcdir) -I. -DSTANDALONE $(srcdir)/raptor_uri.c libraptor.la $(LIBS)
-+raptor_uri_test: $(srcdir)/raptor_uri.c
-+	$(LINK) $(DEFS) $(CPPFLAGS) -I$(srcdir) -I. -DSTANDALONE $(srcdir)/raptor_uri.c -lraptor $(LIBS)
- 
+-
 -raptor_namespace_test: $(srcdir)/raptor_namespace.c libraptor.la
 -	$(LINK) $(DEFS) $(CPPFLAGS) -I$(srcdir) -I. -DSTANDALONE $(srcdir)/raptor_namespace.c libraptor.la $(LIBS) @REDLAND_LIBS@
-+raptor_namespace_test: $(srcdir)/raptor_namespace.c
-+	$(LINK) $(DEFS) $(CPPFLAGS) -I$(srcdir) -I. -DSTANDALONE $(srcdir)/raptor_namespace.c -lraptor $(LIBS) @REDLAND_LIBS@
- 
- strcasecmp_test: $(srcdir)/strcasecmp.c
- 	$(LINK) $(DEFS) $(CPPFLAGS) -I$(srcdir) -I. -DSTANDALONE $(srcdir)/strcasecmp.c
- 
+-
+-strcasecmp_test: $(srcdir)/strcasecmp.c
+-	$(LINK) $(DEFS) $(CPPFLAGS) -I$(srcdir) -I. -DSTANDALONE $(srcdir)/strcasecmp.c
+-
 -raptor_www_test: $(srcdir)/raptor_www_test.c libraptor.la
 -	$(LINK) $(DEFS) $(CPPFLAGS) -I$(srcdir) -I. -DSTANDALONE $(srcdir)/raptor_www_test.c libraptor.la $(LIBS) @REDLAND_LIBS@
-+raptor_www_test: $(srcdir)/raptor_www_test.c
-+	$(LINK) $(DEFS) $(CPPFLAGS) -I$(srcdir) -I. -DSTANDALONE $(srcdir)/raptor_www_test.c -lraptor $(LIBS) @REDLAND_LIBS@
- 
+-
 -raptor_set_test: $(srcdir)/raptor_set.c libraptor.la
 -	$(LINK) $(DEFS) $(CPPFLAGS) -I$(srcdir) -I. -DSTANDALONE $(srcdir)/raptor_set.c libraptor.la $(LIBS) @REDLAND_LIBS@
-+raptor_set_test: $(srcdir)/raptor_set.c
-+	$(LINK) $(DEFS) $(CPPFLAGS) -I$(srcdir) -I. -DSTANDALONE $(srcdir)/raptor_set.c -lraptor $(LIBS) @REDLAND_LIBS@
  
 -raptor_xml_test: $(srcdir)/raptor_xml.c libraptor.la
 -	$(LINK) $(DEFS) $(CPPFLAGS) -I$(srcdir) -I. -DSTANDALONE $(srcdir)/raptor_xml.c libraptor.la $(LIBS) @REDLAND_LIBS@
-+raptor_xml_test: $(srcdir)/raptor_xml.c
-+	$(LINK) $(DEFS) $(CPPFLAGS) -I$(srcdir) -I. -DSTANDALONE $(srcdir)/raptor_xml.c -lraptor $(LIBS) @REDLAND_LIBS@
  
  
  deb: distcheck
---- redland-0.9.13/examples/Makefile.am.orig	2003-01-03 13:16:27.000000000 +0100
-+++ redland-0.9.13/examples/Makefile.am	2003-05-22 23:26:31.000000000 +0200
-@@ -15,7 +15,7 @@
- examples: $(EXAMPLES)
- 
- AM_CPPFLAGS=-I$(top_srcdir)/librdf
--AM_LDFLAGS=@LIBRDF_LDFLAGS@ $(top_builddir)/librdf/librdf.la $(top_builddir)/raptor/libraptor.la
-+AM_LDFLAGS=@LIBRDF_LDFLAGS@ $(top_builddir)/librdf/librdf.la
- LIBS=@LIBS@ @LIBRDF_LIBS@
- 
- example1_SOURCES = example1.c
-@@ -31,13 +31,13 @@
- 
- 
- redland_dbus_SOURCES = redland_dbus.c
--redland_dbus_LDADD=$(top_builddir)/librdf/librdf.la $(top_builddir)/raptor/libraptor.la
-+redland_dbus_LDADD=$(top_builddir)/librdf/librdf.la -lraptor
- redland_dbus_CFLAGS=$(shell pkg-config --cflags dbus-1 glib-2.0 dbus-glib-1 gthread)
- redland_dbus_LDFLAGS=$(shell pkg-config --libs dbus-1 glib-2.0 dbus-glib-1 gthread)
--redland_dbus_DEPENDENCIES = @LIBRDF_LDFLAGS@ $(top_builddir)/librdf/librdf.la $(top_builddir)/raptor/libraptor.la
-+redland_dbus_DEPENDENCIES = @LIBRDF_LDFLAGS@ $(top_builddir)/librdf/librdf.la
- 
- # redland_gui_SOURCES = redland_gui.c
--# redland_gui_LDADD=$(top_builddir)/librdf/librdf.la $(top_builddir)/raptor/libraptor.la
-+# redland_gui_LDADD=$(top_builddir)/librdf/librdf.la -lraptor
- # redland_gui_CFLAGS=$(shell pkg-config --cflags gtk+-2.0)
- # redland_gui_LDFLAGS=$(shell pkg-config --libs gtk+-2.0)
--# redland_gui_DEPENDENCIES = @LIBRDF_LDFLAGS@ $(top_builddir)/librdf/librdf.la $(top_builddir)/raptor/libraptor.la
-+# redland_gui_DEPENDENCIES = @LIBRDF_LDFLAGS@ $(top_builddir)/librdf/librdf.la
---- redland-0.9.12/utils/Makefile.am.orig	2003-02-12 11:28:42.000000000 +0100
-+++ redland-0.9.12/utils/Makefile.am	2003-05-22 23:30:11.000000000 +0200
-@@ -5,7 +5,7 @@
- EXTRA_DIST=update-api-0912.pl $(man_MANS)
- 
- AM_CPPFLAGS=-I$(top_srcdir)/librdf
--AM_LDFLAGS=@LIBRDF_LDFLAGS@ $(top_builddir)/librdf/librdf.la $(top_builddir)/raptor/libraptor.la
-+AM_LDFLAGS=@LIBRDF_LDFLAGS@ $(top_builddir)/librdf/librdf.la
- LIBS=@LIBS@ @LIBRDF_LIBS@
- 
- redland_db_upgrade_SOURCES = db_upgrade.c
---- redland-0.9.13/raptor/examples/Makefile.am.orig	2003-04-15 21:47:30.000000000 +0200
-+++ redland-0.9.13/raptor/examples/Makefile.am	2003-09-07 01:50:55.716579728 +0200
-@@ -34,14 +34,14 @@
- AM_CPPFLAGS=-I$(top_srcdir)
- 
- raptor_abort_SOURCES = raptor_abort.c
--raptor_abort_LDADD=$(top_builddir)/libraptor.la @REDLAND_LIBS@
--raptor_abort_DEPENDENCIES = $(top_builddir)/libraptor.la @REDLAND_LIBS@
-+raptor_abort_LDADD=-lraptor @REDLAND_LIBS@
-+raptor_abort_DEPENDENCIES = @REDLAND_LIBS@
- 
- grapper_SOURCES = grapper.c
--grapper_LDADD=$(top_builddir)/libraptor.la @REDLAND_LIBS@
-+grapper_LDADD=-lraptor @REDLAND_LIBS@
- grapper_CFLAGS=$(shell pkg-config --cflags gtk+-2.0)
- grapper_LDFLAGS=$(shell pkg-config --libs gtk+-2.0)
--grapper_DEPENDENCIES = $(top_builddir)/libraptor.la @REDLAND_LIBS@
-+grapper_DEPENDENCIES = @REDLAND_LIBS@
- 
- 
+--- redland-0.9.14/configure.ac.orig	2003-09-08 16:38:42.000000000 +0200
++++ redland-0.9.14/configure.ac	2003-10-07 22:35:01.216590960 +0200
+@@ -799,7 +799,6 @@
+           LIBRDF_LIBS="$LIBRDF_LIBS -L$rp/lib -lraptor"
+         fi
+         LIBRDF_LIBS="$LIBRDF_LIBS `$RAPTOR_CONFIG --libs`"
+-        raptor_dir=
+       fi
+     fi
  

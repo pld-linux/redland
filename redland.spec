@@ -2,18 +2,18 @@
 Summary:	Redland - a library that provides a high-level interface for RDF
 Summary(pl):	Redland - biblioteka udostêpniaj±ca wysokopoziomowy interfejs do RDF
 Name:		redland
-Version:	0.9.13
+Version:	0.9.14
 Release:	0.1
 License:	LGPL v2 or MPL 1.1
 Group:		Libraries
 Source0:	http://www.redland.opensource.ac.uk/dist/source/%{name}-%{version}.tar.gz
-# Source0-md5:	8ae0f6e001d84c4381cd91f28b498282
+# Source0-md5:	25047248a273138225737e50fa211165
 Patch0:		%{name}-system-raptor.patch
 URL:		http://www.redland.opensource.ac.uk/
 BuildRequires:	autoconf >= 2.53
 BuildRequires:	automake >= 1.6
 BuildRequires:	db-devel
-BuildRequires:	libraptor-devel
+BuildRequires:	libraptor-devel >= 1.0.0
 BuildRequires:	libtool
 BuildRequires:	openssl-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -92,7 +92,16 @@ cd raptor
 # don't use -f here
 automake -a -c --foreign
 cd ..
-%configure
+%configure \
+	--with-raptor=system
+
+#	--with-java --with-jdk=/usr/lib/java  -- builds, but can be only optional
+#	--with-perl  -- needs INSTALLDIRS=vendor in perl/Makefile.am
+#	--with-ruby  -- missing install -d before installing *.so
+#	--with-tcl  -- missing install -d before installing *.so
+#	--with-python  -- doesn't support DESTDIR
+#	--with-php  -- cannot find config.h
+#	--with-ecma-cli=mono  -- TODO
 
 %{__make}
 
@@ -101,9 +110,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
-
-# don't want this here (already in libraptor-devel)
-rm -f $RPM_BUILD_ROOT%{_pkgconfigdir}/raptor.pc
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -114,8 +120,10 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog FAQS.html LICENSE.html NEWS.html README.html RELEASE.html TODO.html
+%attr(755,root,root) %{_bindir}/rdfproc
 %attr(755,root,root) %{_bindir}/redland-db-upgrade
 %attr(755,root,root) %{_libdir}/librdf.so.*.*.*
+%{_mandir}/man1/rdfproc.1*
 %{_mandir}/man1/redland-db-upgrade.1*
 
 %files devel
