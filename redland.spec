@@ -7,6 +7,7 @@ Release:	0.1
 License:	LGPL v2 or MPL 1.1
 Group:		Libraries
 Source0:	http://www.redland.opensource.ac.uk/dist/source/%{name}-%{version}.tar.gz
+# Source0-md5:	545ffc5e1da2e240392b0dbe32afa821
 Patch0:		%{name}-system-raptor.patch
 Patch1:		%{name}-amfix.patch
 URL:		http://www.redland.opensource.ac.uk/
