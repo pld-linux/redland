@@ -1,0 +1,77 @@
+--- redland-0.9.12/configure.in.orig	2003-01-31 12:07:51.000000000 +0100
++++ redland-0.9.12/configure.in	2003-05-22 23:10:38.000000000 +0200
+@@ -629,8 +629,7 @@
+     PARSER_SRCS="$PARSER_SRCS rdf_parser_$parser.c"
+ 
+     if test $parser = raptor; then
+-      LIBRDF_INTERNAL_CPPFLAGS="-I\$(top_srcdir)/raptor $LIBRDF_INTERNAL_CPPFLAGS"
+-      LIBRDF_INTERNAL_LIBS="\$(top_builddir)/raptor/libraptor.la $LIBRDF_INTERNAL_LIBS"
++      LIBRDF_INTERNAL_LIBS="-lraptor $LIBRDF_INTERNAL_LIBS"
+     fi
+ 
+     n=HAVE_${uname}_RDF_PARSER
+--- redland-0.9.12/Makefile.am.orig	2003-02-12 18:55:10.000000000 +0100
++++ redland-0.9.12/Makefile.am	2003-05-22 23:14:29.000000000 +0200
+@@ -23,7 +23,7 @@
+ noinst_SCRIPTS = redland-src-config
+ 
+ # Subdirectories to build/install etc.
+-SUBDIRS=@SD@ repat raptor librdf examples utils
++SUBDIRS=@SD@ repat librdf raptor examples utils
+ CONFIG_SUBDIRS=raptor
+ # Subdirectories to use for distribution
+ DIST_SUBDIRS=librdf docs examples \
+--- redland-0.9.12/raptor/Makefile.am.orig	2003-02-13 00:50:02.000000000 +0100
++++ redland-0.9.12/raptor/Makefile.am	2003-05-22 23:13:47.000000000 +0200
+@@ -20,25 +20,15 @@
+ 
+ 
+ bin_PROGRAMS = rapper
+-bin_SCRIPTS = raptor-config
+-noinst_SCRIPTS = raptor-src-config
+-lib_LTLIBRARIES = libraptor.la
++noinst_SCRIPTS = raptor-config raptor-src-config
+ 
+-include_HEADERS = raptor.h ntriples.h
++noinst_HEADERS = raptor.h ntriples.h raptor_internal.h win32_config.h
+ 
+-noinst_HEADERS = raptor_internal.h win32_config.h
+-
+-man_MANS = rapper.1 libraptor.3
++man_MANS = rapper.1
+ 
+ rapper_SOURCES = rdfdump.c
+-rapper_LDADD = libraptor.la @REDLAND_LIBS@
++rapper_LDADD = -lraptor @REDLAND_LIBS@
+ rapper_DEPENDENCIES = @REDLAND_LIBS@
+-libraptor_la_SOURCES = raptor_parse.c ntriples_parse.c \
+-raptor_uri.c raptor_libxml.c raptor_win32.c raptor_locator.c \
+-raptor_namespace.c raptor_qname.c raptor_general.c raptor_utf8.c
+-
+-libraptor_la_LDFLAGS = -version-info @RAPTOR_LIBTOOL_VERSION@
+-libraptor_la_LIBADD = @LTLIBOBJS@
+ 
+ EXTRA_DIST=ChangeLog \
+ README      NEWS      LICENSE.txt \
+--- redland-0.9.12/examples/Makefile.am.orig	2003-01-03 13:16:27.000000000 +0100
++++ redland-0.9.12/examples/Makefile.am	2003-05-22 23:26:31.000000000 +0200
+@@ -15,7 +15,7 @@
+ examples: $(EXAMPLES)
+ 
+ CPPFLAGS=-I$(top_srcdir)/librdf
+-LDFLAGS=@LIBRDF_LDFLAGS@ $(top_builddir)/librdf/librdf.la $(top_builddir)/raptor/libraptor.la
++LDFLAGS=@LIBRDF_LDFLAGS@ $(top_builddir)/librdf/librdf.la
+ LIBS=@LIBRDF_LIBS@
+ 
+ example1_SOURCES = example1.c
+--- redland-0.9.12/utils/Makefile.am.orig	2003-02-12 11:28:42.000000000 +0100
++++ redland-0.9.12/utils/Makefile.am	2003-05-22 23:30:11.000000000 +0200
+@@ -5,7 +5,7 @@
+ EXTRA_DIST=update-api-0912.pl
+ 
+ CPPFLAGS=-I$(top_srcdir)/librdf
+-LDFLAGS=@LIBRDF_LDFLAGS@ $(top_builddir)/librdf/librdf.la $(top_builddir)/raptor/libraptor.la
++LDFLAGS=@LIBRDF_LDFLAGS@ $(top_builddir)/librdf/librdf.la
+ LIBS=@LIBRDF_LIBS@
+ 
+ redland_db_upgrade_SOURCES = db_upgrade.c
