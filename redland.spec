@@ -6,19 +6,19 @@ Version:	0.9.12
 Release:	0.1
 License:	LGPL v2 or MPL 1.1
 Group:		Libraries
-Source0:	http://www.redland.opensource.ac.uk/dist/source/%{name}-%{version}.tar.gz
 # Source0-md5:	545ffc5e1da2e240392b0dbe32afa821
+Source0:	http://www.redland.opensource.ac.uk/dist/source/%{name}-%{version}.tar.gz
 Patch0:		%{name}-system-raptor.patch
 Patch1:		%{name}-amfix.patch
+Patch2:		%{name}-system-repat.patch
 URL:		http://www.redland.opensource.ac.uk/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	db-devel
-# expat for repat
-BuildRequires:	expat-devel
 BuildRequires:	libraptor-devel
 BuildRequires:	libtool
 BuildRequires:	openssl-devel
+BuildRequires:	repat-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -45,6 +45,9 @@ Summary:	Headers for Redland RDF library
 Summary(pl):	Pliki nag³ówkowe biblioteki Redland RDF
 Group:		Development/Libraries
 Requires:	%{name} = %{version}
+Requires:	libraptor-devel
+Requires:	db-devel
+Requires:	repat-devel
 
 %description devel
 Headers for Redland RDF library.
@@ -80,6 +83,7 @@ Testowy program parsera Raptor RDF ze wsparciem dla Redland RDF.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 %{__libtoolize}
