@@ -2,8 +2,7 @@ Summary:	-
 Summary(pl):	-
 Name:		redland
 Version:	0.9.12
-Release:	-
-Epoch:		-
+Release:	0.1
 License:	LGPL v2 or MPL 1.1
 Group:		-
 Source0:	http://www.redland.opensource.ac.uk/dist/source/%{name}-%{version}.tar.gz
