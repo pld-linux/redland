@@ -33,7 +33,7 @@ that can be added or removed as required.
 Redland to biblioteka udostêpniaj±ca wysokopoziomowy interfejs do RDF,
 pozwalaj±ca na analizê grafu RDF z XML-a, jego przechowywanie,
 odpytywanie i obróbkê. Redland zawiera implementacje ka¿dego pojêcia z
-RDF w odobnej klasie poprzez obiekt oparty na API, maj±cy
+RDF w osobnej klasie poprzez obiekt oparty na API, maj±cy
 odzwierciedlenie w API dla innych jêzyków: Perla, Pythona, Tcl-a, Javy
 i Ruby'ego. Czê¶æ klas udostêpniaj±cych analizatory, mechanizmy
 przechowywania i inne elementy jest zbudowana jako modu³y, które mog±
