@@ -17,7 +17,7 @@ BuildRequires:	db-devel
 BuildRequires:	libraptor-devel >= 1.2.0
 BuildRequires:	libtool
 BuildRequires:	mysql-devel >= 3.23.58
-BuildRequires:	openssl-devel
+BuildRequires:	openssl-devel >= 0.9.7d
 BUildRequires:	rpm-pythonprov
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
