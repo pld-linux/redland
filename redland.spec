@@ -2,23 +2,20 @@
 Summary:	Redland - a library that provides a high-level interface for RDF
 Summary(pl):	Redland - biblioteka udostêpniaj±ca wysokopoziomowy interfejs do RDF
 Name:		redland
-Version:	0.9.12
+Version:	0.9.13
 Release:	0.1
 License:	LGPL v2 or MPL 1.1
 Group:		Libraries
-# Source0-md5:	545ffc5e1da2e240392b0dbe32afa821
 Source0:	http://www.redland.opensource.ac.uk/dist/source/%{name}-%{version}.tar.gz
+# Source0-md5:	8ae0f6e001d84c4381cd91f28b498282
 Patch0:		%{name}-system-raptor.patch
-Patch1:		%{name}-amfix.patch
-Patch2:		%{name}-system-repat.patch
 URL:		http://www.redland.opensource.ac.uk/
-BuildRequires:	autoconf
-BuildRequires:	automake
+BuildRequires:	autoconf >= 2.53
+BuildRequires:	automake >= 1.6
 BuildRequires:	db-devel
 BuildRequires:	libraptor-devel
 BuildRequires:	libtool
 BuildRequires:	openssl-devel
-BuildRequires:	repat-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -45,9 +42,8 @@ Summary:	Headers for Redland RDF library
 Summary(pl):	Pliki nag³ówkowe biblioteki Redland RDF
 Group:		Development/Libraries
 Requires:	%{name} = %{version}
-Requires:	libraptor-devel
 Requires:	db-devel
-Requires:	repat-devel
+Requires:	libraptor-devel
 
 %description devel
 Headers for Redland RDF library.
@@ -82,8 +78,6 @@ Testowy program parsera Raptor RDF ze wsparciem dla Redland RDF.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
-%patch2 -p1
 
 %build
 %{__libtoolize}
@@ -108,6 +102,9 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
+# don't want this here (already in libraptor-devel)
+rm -f $RPM_BUILD_ROOT%{_pkgconfigdir}/raptor.pc
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -119,6 +116,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS ChangeLog FAQS.html LICENSE.html NEWS.html README.html RELEASE.html TODO.html
 %attr(755,root,root) %{_bindir}/redland-db-upgrade
 %attr(755,root,root) %{_libdir}/librdf.so.*.*.*
+%{_mandir}/man1/redland-db-upgrade.1*
 
 %files devel
 %defattr(644,root,root,755)
@@ -129,6 +127,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/librdf.h
 %{_includedir}/rdf_*.h
 %{_includedir}/redland.h
+%{_mandir}/man1/redland-config.1*
 %{_mandir}/man3/redland.3*
 
 %files static
