@@ -1,5 +1,4 @@
 # TODO: various language support (java, perl, php, ruby, tcl)
-%include	/usr/lib/rpm/macros.python
 Summary:	Redland - a library that provides a high-level interface for RDF
 Summary(pl):	Redland - biblioteka udostêpniaj±ca wysokopoziomowy interfejs do RDF
 Name:		redland
