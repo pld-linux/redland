@@ -1,23 +1,23 @@
 Summary:	Redland - a library that provides a high-level interface for RDF
 Summary(pl):	Redland - biblioteka udostêpniaj±ca wysokopoziomowy interfejs do RDF
 Name:		redland
-Version:	0.9.18
+Version:	0.9.19
 Release:	1
-License:	LGPL v2 or GPL v2 or MPL 1.1
+License:	LGPL v2.1+ or GPL v2+ or Apache v2
 Group:		Libraries
 Source0:	http://www.redland.opensource.ac.uk/dist/source/%{name}-%{version}.tar.gz
-# Source0-md5:	64ab895d0d9f5ad8540357e26dc46253
+# Source0-md5:	a9e413e5243e950e3322f6505481cedf
 URL:		http://www.redland.opensource.ac.uk/
 BuildRequires:	autoconf >= 2.53
 BuildRequires:	automake >= 1.7
 BuildRequires:	db-devel
-BuildRequires:	libraptor-devel >= 1.3.0
+BuildRequires:	libraptor-devel >= 1.4.2
 BuildRequires:	libtool
 BuildRequires:	mysql-devel >= 3.23.58
 BuildRequires:	openssl-devel >= 0.9.7d
-BuildRequires:	rasqal-devel >= 1:0.9.2
-Requires:	libraptor >= 1.3.0
-Requires:	rasqal >= 1:0.9.2
+BuildRequires:	rasqal-devel >= 1:0.9.3
+Requires:	libraptor >= 1.4.2
+Requires:	rasqal >= 1:0.9.3
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -45,9 +45,9 @@ Summary(pl):	Pliki nag³ówkowe biblioteki Redland RDF
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	db-devel
-Requires:	libraptor-devel >= 1.3.0
+Requires:	libraptor-devel >= 1.4.2
 Requires:	mysql-devel >= 3.23.58
-Requires:	rasqal-devel >= 1:0.9.2
+Requires:	rasqal-devel >= 1:0.9.3
 
 %description devel
 Headers for Redland RDF library.
