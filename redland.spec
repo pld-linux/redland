@@ -9,7 +9,7 @@ Source0:	http://www.redland.opensource.ac.uk/dist/source/%{name}-%{version}.tar.
 # Source0-md5:	a9e413e5243e950e3322f6505481cedf
 URL:		http://www.redland.opensource.ac.uk/
 BuildRequires:	autoconf >= 2.53
-BuildRequires:	automake >= 1.7
+BuildRequires:	automake >= 1:1.7
 BuildRequires:	db-devel
 BuildRequires:	libraptor-devel >= 1.4.2
 BuildRequires:	libtool
