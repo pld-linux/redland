@@ -6,8 +6,6 @@ Release:	-
 Epoch:		-
 License:	LGPL v2 or MPL 1.1
 Group:		-
-Vendor:		-
-Icon:		-
 Source0:	http://www.redland.opensource.ac.uk/dist/source/%{name}-%{version}.tar.gz
 URL:		http://www.redland.opensource.ac.uk/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
