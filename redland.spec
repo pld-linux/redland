@@ -2,12 +2,12 @@
 Summary:	Redland - a library that provides a high-level interface for RDF
 Summary(pl):	Redland - biblioteka udostêpniaj±ca wysokopoziomowy interfejs do RDF
 Name:		redland
-Version:	0.9.14
+Version:	0.9.16
 Release:	0.1
 License:	LGPL v2 or MPL 1.1
 Group:		Libraries
 Source0:	http://www.redland.opensource.ac.uk/dist/source/%{name}-%{version}.tar.gz
-# Source0-md5:	25047248a273138225737e50fa211165
+# Source0-md5:	d78c768825df2727aec8336fe9772d8d
 Patch0:		%{name}-system-raptor.patch
 URL:		http://www.redland.opensource.ac.uk/
 BuildRequires:	autoconf >= 2.53
@@ -75,9 +75,29 @@ Raptor RDF parser test program with Redland RDF support.
 %description rapper -l pl
 Testowy program parsera Raptor RDF ze wsparciem dla Redland RDF.
 
+
+%define py_ver         2.3
+%define py_prefix      %{_prefix}
+%define py_libdir      %{py_prefix}/%{_lib}/python%{py_ver}
+%define py_scriptdir   %{py_prefix}/share/python%{py_ver}
+%define py_incdir      %{_includedir}/python%{py_ver}
+%define py_sitedir     %{py_libdir}/site-packages
+%define py_sitescriptdir %{py_scriptdir}/site-packages
+
+%package -n python-redland
+Summary:	Python bindings for Redland RDF library
+Summary(pl):	Pythonowy interfejs do biblioteki Redland RDF
+Group:		Libraries/Python
+
+%description -n python-redland
+Python bindings for Redland RDF library
+
+%description -n python-redland -l pl
+Pythonowy interfejs do biblioteki Redland RDF
+
 %prep
 %setup -q
-%patch0 -p1
+#%%patch0 -p1
 
 %build
 %{__libtoolize}
@@ -93,7 +113,8 @@ cd raptor
 automake -a -c --foreign
 cd ..
 %configure \
-	--with-raptor=system
+	--with-raptor \
+	--with-python
 
 #	--with-java --with-jdk=/usr/lib/java  -- builds, but can be only optional
 #	--with-perl  -- needs INSTALLDIRS=vendor in perl/Makefile.am
@@ -146,3 +167,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/rapper
 %{_mandir}/man1/rapper.1*
+
+%files -n python-redland
+%defattr(644,root,root,755)
+%{py_sitedir}
