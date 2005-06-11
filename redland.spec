@@ -1,12 +1,12 @@
 Summary:	Redland - a library that provides a high-level interface for RDF
 Summary(pl):	Redland - biblioteka udostêpniaj±ca wysokopoziomowy interfejs do RDF
 Name:		redland
-Version:	1.0.1
+Version:	1.0.2
 Release:	1
 License:	LGPL v2.1+ or GPL v2+ or Apache v2
 Group:		Libraries
 Source0:	http://www.redland.opensource.ac.uk/dist/source/%{name}-%{version}.tar.gz
-# Source0-md5:	afd9414b9f3c385b3fe00c0ea7db9714
+# Source0-md5:	64c291f063e15b4929a276167359ccf7
 URL:		http://www.redland.opensource.ac.uk/
 BuildRequires:	autoconf >= 2.53
 BuildRequires:	automake >= 1:1.7
