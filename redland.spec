@@ -15,9 +15,9 @@ BuildRequires:	libraptor-devel >= 1.4.3
 BuildRequires:	libtool
 BuildRequires:	mysql-devel >= 3.23.58
 BuildRequires:	openssl-devel >= 0.9.7d
-BuildRequires:	rasqal-devel >= 1:0.9.6
+BuildRequires:	rasqal-devel >= 1:0.9.10
 Requires:	libraptor >= 1.4.3
-Requires:	rasqal >= 1:0.9.6
+Requires:	rasqal >= 1:0.9.10
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -47,7 +47,7 @@ Requires:	%{name} = %{version}-%{release}
 Requires:	db-devel
 Requires:	libraptor-devel >= 1.4.3
 Requires:	mysql-devel >= 3.23.58
-Requires:	rasqal-devel >= 1:0.9.6
+Requires:	rasqal-devel >= 1:0.9.10
 
 %description devel
 Headers for Redland RDF library.
