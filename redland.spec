@@ -1,23 +1,28 @@
 Summary:	Redland - a library that provides a high-level interface for RDF
 Summary(pl):	Redland - biblioteka udostêpniaj±ca wysokopoziomowy interfejs do RDF
 Name:		redland
-Version:	1.0.2
-Release:	4
+Version:	1.0.3
+Release:	1
 License:	LGPL v2.1+ or GPL v2+ or Apache v2
 Group:		Libraries
-Source0:	http://www.redland.opensource.ac.uk/dist/source/%{name}-%{version}.tar.gz
-# Source0-md5:	64c291f063e15b4929a276167359ccf7
-URL:		http://www.redland.opensource.ac.uk/
+Source0:	http://download.librdf.org/source/%{name}-%{version}.tar.gz
+# Source0-md5:	a354fa07d57b377d5e555cccb3de3023
+URL:		http://librdf.org/
+# 3store-devel, http://threestore.sourceforge.net/
 BuildRequires:	autoconf >= 2.53
 BuildRequires:	automake >= 1:1.7
 BuildRequires:	db-devel
-BuildRequires:	libraptor-devel >= 1.4.3
+BuildRequires:	libraptor-devel >= 1.4.8
 BuildRequires:	libtool
 BuildRequires:	mysql-devel >= 3.23.58
 BuildRequires:	openssl-devel >= 0.9.7d
-BuildRequires:	rasqal-devel >= 1:0.9.10
-Requires:	libraptor >= 1.4.3
-Requires:	rasqal >= 1:0.9.10
+BuildRequires:	pkgconfig
+BuildRequires:	postgresql-devel
+BuildRequires:	rasqal-devel >= 1:0.9.11
+BuildRequires:	rpmbuild(macros) >= 1.98
+BuildRequires:	sqlite3-devel >= 3
+Requires:	libraptor >= 1.4.8
+Requires:	rasqal >= 1:0.9.11
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -45,9 +50,11 @@ Summary(pl):	Pliki nag³ówkowe biblioteki Redland RDF
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	db-devel
-Requires:	libraptor-devel >= 1.4.3
+Requires:	libraptor-devel >= 1.4.8
 Requires:	mysql-devel >= 3.23.58
-Requires:	rasqal-devel >= 1:0.9.10
+Requires:	postgresql-devel
+Requires:	rasqal-devel >= 1:0.9.11
+Requires:	sqlite3-devel >= 3
 
 %description devel
 Headers for Redland RDF library.
@@ -90,6 +97,7 @@ Pythonowy interfejs do biblioteki Redland RDF
 %{__autoheader}
 %{__automake}
 %configure \
+	--with-html-dir=%{_gtkdocdir} \
 	--with-raptor=system \
 	--with-rasqal=system
 
@@ -109,7 +117,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog FAQS.html LICENSE.html NEWS.html README.html RELEASE.html TODO.html
+%doc AUTHORS ChangeLog* FAQS.html LICENSE.html NEWS.html README.html RELEASE.html TODO.html
 %attr(755,root,root) %{_bindir}/rdfproc
 %attr(755,root,root) %{_bindir}/redland-db-upgrade
 %attr(755,root,root) %{_libdir}/librdf.so.*.*.*
@@ -118,7 +126,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%doc docs/{README.html,storage.html,api}
+%doc docs/{README.html,storage.html}
 %attr(755,root,root) %{_bindir}/redland-config
 %attr(755,root,root) %{_libdir}/librdf.so
 %{_libdir}/librdf.la
@@ -130,6 +138,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_pkgconfigdir}/redland.pc
 %{_mandir}/man1/redland-config.1*
 %{_mandir}/man3/redland.3*
+%{_gtkdocdir}/redland
 
 %files static
 %defattr(644,root,root,755)
