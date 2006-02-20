@@ -7,8 +7,10 @@ License:	LGPL v2.1+ or GPL v2+ or Apache v2
 Group:		Libraries
 Source0:	http://download.librdf.org/source/%{name}-%{version}.tar.gz
 # Source0-md5:	a354fa07d57b377d5e555cccb3de3023
+Patch0:		%{name}-db4.4.patch
 URL:		http://librdf.org/
-# 3store-devel, http://threestore.sourceforge.net/
+BuildRequires:	3store-devel >= 2.0
+BuildRequires:	3store-devel < 3.0
 BuildRequires:	autoconf >= 2.53
 BuildRequires:	automake >= 1:1.7
 BuildRequires:	db-devel
@@ -49,6 +51,8 @@ Summary:	Headers for Redland RDF library
 Summary(pl):	Pliki nag³ówkowe biblioteki Redland RDF
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
+Requires:	3store-devel >= 2.0
+Requires:	3store-devel < 3.0
 Requires:	db-devel
 Requires:	libraptor-devel >= 1.4.8
 Requires:	mysql-devel >= 3.23.58
@@ -89,6 +93,7 @@ Pythonowy interfejs do biblioteki Redland RDF
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %{__libtoolize}
