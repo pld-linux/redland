@@ -1,30 +1,29 @@
 Summary:	Redland - a library that provides a high-level interface for RDF
 Summary(pl):	Redland - biblioteka udostêpniaj±ca wysokopoziomowy interfejs do RDF
 Name:		redland
-Version:	1.0.3
+Version:	1.0.4
 Release:	1
 License:	LGPL v2.1+ or GPL v2+ or Apache v2
 Group:		Libraries
 Source0:	http://download.librdf.org/source/%{name}-%{version}.tar.gz
-# Source0-md5:	a354fa07d57b377d5e555cccb3de3023
-Patch0:		%{name}-db4.4.patch
+# Source0-md5:	3ee58cbf5486c97ef3bc0c4368a344cc
 URL:		http://librdf.org/
 BuildRequires:	3store-devel >= 2.0
 BuildRequires:	3store-devel < 3.0
 BuildRequires:	autoconf >= 2.53
 BuildRequires:	automake >= 1:1.7
 BuildRequires:	db-devel
-BuildRequires:	libraptor-devel >= 1.4.8
+BuildRequires:	libraptor-devel >= 1.4.9
 BuildRequires:	libtool
 BuildRequires:	mysql-devel >= 3.23.58
 BuildRequires:	openssl-devel >= 0.9.7d
 BuildRequires:	pkgconfig
 BuildRequires:	postgresql-devel
-BuildRequires:	rasqal-devel >= 1:0.9.11
+BuildRequires:	rasqal-devel >= 1:0.9.12
 BuildRequires:	rpmbuild(macros) >= 1.98
 BuildRequires:	sqlite3-devel >= 3
-Requires:	libraptor >= 1.4.8
-Requires:	rasqal >= 1:0.9.11
+Requires:	libraptor >= 1.4.9
+Requires:	rasqal >= 1:0.9.12
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -54,10 +53,10 @@ Requires:	%{name} = %{version}-%{release}
 Requires:	3store-devel >= 2.0
 Requires:	3store-devel < 3.0
 Requires:	db-devel
-Requires:	libraptor-devel >= 1.4.8
+Requires:	libraptor-devel >= 1.4.9
 Requires:	mysql-devel >= 3.23.58
 Requires:	postgresql-devel
-Requires:	rasqal-devel >= 1:0.9.11
+Requires:	rasqal-devel >= 1:0.9.12
 Requires:	sqlite3-devel >= 3
 
 %description devel
@@ -93,7 +92,6 @@ Pythonowy interfejs do biblioteki Redland RDF
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 %{__libtoolize}
