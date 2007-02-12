@@ -1,5 +1,5 @@
 Summary:	Redland - a library that provides a high-level interface for RDF
-Summary(pl.UTF-8):   Redland - biblioteka udostępniająca wysokopoziomowy interfejs do RDF
+Summary(pl.UTF-8):	Redland - biblioteka udostępniająca wysokopoziomowy interfejs do RDF
 Name:		redland
 Version:	1.0.5
 Release:	1
@@ -48,7 +48,7 @@ być dodawane lub usuwane w razie potrzeby.
 
 %package devel
 Summary:	Headers for Redland RDF library
-Summary(pl.UTF-8):   Pliki nagłówkowe biblioteki Redland RDF
+Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki Redland RDF
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	3store-devel >= 2.0
@@ -68,7 +68,7 @@ Pliki nagłówkowe biblioteki Redland RDF.
 
 %package static
 Summary:	Static Redland RDF library
-Summary(pl.UTF-8):   Statyczna biblioteka Redland RDF
+Summary(pl.UTF-8):	Statyczna biblioteka Redland RDF
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
@@ -80,7 +80,7 @@ Statyczna biblioteka Redland RDF.
 
 %package -n python-redland
 Summary:	Python bindings for Redland RDF library
-Summary(pl.UTF-8):   Pythonowy interfejs do biblioteki Redland RDF
+Summary(pl.UTF-8):	Pythonowy interfejs do biblioteki Redland RDF
 Group:		Libraries/Python
 Requires:	%{name} = %{version}-%{release}
 %pyrequires_eq	python
