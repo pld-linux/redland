@@ -1,5 +1,5 @@
 Summary:	Redland - a library that provides a high-level interface for RDF
-Summary(pl):	Redland - biblioteka udostÍpniaj±ca wysokopoziomowy interfejs do RDF
+Summary(pl.UTF-8):   Redland - biblioteka udostƒôpniajƒÖca wysokopoziomowy interfejs do RDF
 Name:		redland
 Version:	1.0.5
 Release:	1
@@ -36,19 +36,19 @@ Perl, Python, Tcl, Java and Ruby. Some of the classes providing the
 parsers, storage mechanisms and other elements are built as modules
 that can be added or removed as required.
 
-%description -l pl
-Redland to biblioteka udostÍpniaj±ca wysokopoziomowy interfejs do RDF,
-pozwalaj±ca na analizÍ grafu RDF z XML-a, jego przechowywanie,
-odpytywanie i obrÛbkÍ. Redland zawiera implementacje kaødego pojÍcia z
-RDF w osobnej klasie poprzez obiekt oparty na API, maj±cy
-odzwierciedlenie w API dla innych jÍzykÛw: Perla, Pythona, Tcl-a, Javy
-i Ruby'ego. CzÍ∂Ê klas udostÍpniaj±cych analizatory, mechanizmy
-przechowywania i inne elementy jest zbudowana jako modu≥y, ktÛre mog±
-byÊ dodawane lub usuwane w razie potrzeby.
+%description -l pl.UTF-8
+Redland to biblioteka udostƒôpniajƒÖca wysokopoziomowy interfejs do RDF,
+pozwalajƒÖca na analizƒô grafu RDF z XML-a, jego przechowywanie,
+odpytywanie i obr√≥bkƒô. Redland zawiera implementacje ka≈ºdego pojƒôcia z
+RDF w osobnej klasie poprzez obiekt oparty na API, majƒÖcy
+odzwierciedlenie w API dla innych jƒôzyk√≥w: Perla, Pythona, Tcl-a, Javy
+i Ruby'ego. Czƒô≈õƒá klas udostƒôpniajƒÖcych analizatory, mechanizmy
+przechowywania i inne elementy jest zbudowana jako modu≈Çy, kt√≥re mogƒÖ
+byƒá dodawane lub usuwane w razie potrzeby.
 
 %package devel
 Summary:	Headers for Redland RDF library
-Summary(pl):	Pliki nag≥Ûwkowe biblioteki Redland RDF
+Summary(pl.UTF-8):   Pliki nag≈Ç√≥wkowe biblioteki Redland RDF
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	3store-devel >= 2.0
@@ -63,24 +63,24 @@ Requires:	sqlite3-devel >= 3
 %description devel
 Headers for Redland RDF library.
 
-%description devel -l pl
-Pliki nag≥Ûwkowe biblioteki Redland RDF.
+%description devel -l pl.UTF-8
+Pliki nag≈Ç√≥wkowe biblioteki Redland RDF.
 
 %package static
 Summary:	Static Redland RDF library
-Summary(pl):	Statyczna biblioteka Redland RDF
+Summary(pl.UTF-8):   Statyczna biblioteka Redland RDF
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
 Static Redland RDF library.
 
-%description static -l pl
+%description static -l pl.UTF-8
 Statyczna biblioteka Redland RDF.
 
 %package -n python-redland
 Summary:	Python bindings for Redland RDF library
-Summary(pl):	Pythonowy interfejs do biblioteki Redland RDF
+Summary(pl.UTF-8):   Pythonowy interfejs do biblioteki Redland RDF
 Group:		Libraries/Python
 Requires:	%{name} = %{version}-%{release}
 %pyrequires_eq	python
@@ -88,7 +88,7 @@ Requires:	%{name} = %{version}-%{release}
 %description -n python-redland
 Python bindings for Redland RDF library
 
-%description -n python-redland -l pl
+%description -n python-redland -l pl.UTF-8
 Pythonowy interfejs do biblioteki Redland RDF
 
 %prep
