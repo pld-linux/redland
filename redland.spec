@@ -1,3 +1,7 @@
+#
+# Conditional build:
+%bcond_without	threestore	# with 3store
+#
 Summary:	Redland - a library that provides a high-level interface for RDF
 Summary(pl.UTF-8):	Redland - biblioteka udostępniająca wysokopoziomowy interfejs do RDF
 Name:		redland
@@ -9,8 +13,10 @@ Source0:	http://download.librdf.org/source/%{name}-%{version}.tar.gz
 # Source0-md5:	43d909ff6ffa7f7559ad9af5620c8cbf
 Patch0:		%{name}-link.patch
 URL:		http://librdf.org/
+%if %{with threestore}
 BuildRequires:	3store-devel >= 2.0
 BuildRequires:	3store-devel < 3.0
+%endif
 BuildRequires:	autoconf >= 2.53
 BuildRequires:	automake >= 1:1.7
 BuildRequires:	db-devel
@@ -51,8 +57,10 @@ Summary:	Headers for Redland RDF library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki Redland RDF
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
+%if %{with threestore}
 Requires:	3store-devel >= 2.0
 Requires:	3store-devel < 3.0
+%endif
 Requires:	db-devel
 Requires:	libraptor-devel >= 1.4.13
 Requires:	mysql-devel >= 3.23.58
@@ -103,6 +111,7 @@ Pythonowy interfejs do biblioteki Redland RDF
 %{__automake}
 %configure \
 	--with-html-dir=%{_gtkdocdir} \
+	--with-threestore=%{!?with_threestore:no}%{?with_threestore:yes} \
 	--with-raptor=system \
 	--with-rasqal=system
 
