@@ -5,12 +5,12 @@
 Summary:	Redland - a library that provides a high-level interface for RDF
 Summary(pl.UTF-8):	Redland - biblioteka udostępniająca wysokopoziomowy interfejs do RDF
 Name:		redland
-Version:	1.0.5
+Version:	1.0.6
 Release:	1
 License:	LGPL v2.1+ or GPL v2+ or Apache v2
 Group:		Libraries
 Source0:	http://download.librdf.org/source/%{name}-%{version}.tar.gz
-# Source0-md5:	43d909ff6ffa7f7559ad9af5620c8cbf
+# Source0-md5:	901bf87252658c8b247dc6eda00f8724
 Patch0:		%{name}-link.patch
 URL:		http://librdf.org/
 %if %{with threestore}
@@ -20,17 +20,17 @@ BuildRequires:	3store-devel < 3.0
 BuildRequires:	autoconf >= 2.53
 BuildRequires:	automake >= 1:1.7
 BuildRequires:	db-devel
-BuildRequires:	libraptor-devel >= 1.4.13
+BuildRequires:	libraptor-devel >= 1.4.15
 BuildRequires:	libtool
 BuildRequires:	mysql-devel >= 3.23.58
 BuildRequires:	openssl-devel >= 0.9.7d
 BuildRequires:	pkgconfig
 BuildRequires:	postgresql-devel
-BuildRequires:	rasqal-devel >= 1:0.9.13
+BuildRequires:	rasqal-devel >= 1:0.9.14
 BuildRequires:	rpmbuild(macros) >= 1.98
 BuildRequires:	sqlite3-devel >= 3
-Requires:	libraptor >= 1.4.13
-Requires:	rasqal >= 1:0.9.13
+Requires:	libraptor >= 1.4.15
+Requires:	rasqal >= 1:0.9.14
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -62,10 +62,10 @@ Requires:	3store-devel >= 2.0
 Requires:	3store-devel < 3.0
 %endif
 Requires:	db-devel
-Requires:	libraptor-devel >= 1.4.13
+Requires:	libraptor-devel >= 1.4.15
 Requires:	mysql-devel >= 3.23.58
 Requires:	postgresql-devel
-Requires:	rasqal-devel >= 1:0.9.13
+Requires:	rasqal-devel >= 1:0.9.14
 Requires:	sqlite3-devel >= 3
 
 %description devel
@@ -135,6 +135,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/rdfproc
 %attr(755,root,root) %{_bindir}/redland-db-upgrade
 %attr(755,root,root) %{_libdir}/librdf.so.*.*.*
+%dir %{_datadir}/redland
+%{_datadir}/redland/mysql-v*.ttl
 %{_mandir}/man1/rdfproc.1*
 %{_mandir}/man1/redland-db-upgrade.1*
 
@@ -147,7 +149,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/librdf.h
 %{_includedir}/rdf_*.h
 %{_includedir}/redland.h
-%dir %{_datadir}/redland
 %{_datadir}/redland/Redland.i
 %{_pkgconfigdir}/redland.pc
 %{_mandir}/man1/redland-config.1*
