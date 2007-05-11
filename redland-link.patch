@@ -1,22 +1,22 @@
---- redland-1.0.5/librdf/Makefile.am.orig	2006-11-01 06:12:21.000000000 +0100
-+++ redland-1.0.5/librdf/Makefile.am	2007-02-03 16:30:13.848192112 +0100
-@@ -118,7 +118,7 @@
+--- redland-1.0.6/librdf/Makefile.am.orig	2007-02-18 01:41:28.000000000 +0100
++++ redland-1.0.6/librdf/Makefile.am	2007-05-12 00:52:39.835338606 +0200
+@@ -120,7 +120,7 @@
  
  librdf_la_LIBADD = \
- @LTLIBOBJS@ @DIGEST_OBJS@ @HASH_OBJS@ @PARSER_OBJS@ \
+ @LTLIBOBJS@ @DIGEST_OBJS@ @HASH_OBJS@ \
 -@LIBRDF_INTERNAL_LIBS@
 +@LIBRDF_INTERNAL_LIBS@ @LIBRDF_EXTERNAL_LIBS@ $(MEM_LIBS)
  
  librdf_la_DEPENDENCIES = \
- @DIGEST_OBJS@ @HASH_OBJS@ @PARSER_OBJS@ \
-@@ -171,7 +171,7 @@
+ @DIGEST_OBJS@ @HASH_OBJS@ \
+@@ -183,7 +183,7 @@
  AM_CPPFLAGS=@LIBRDF_INTERNAL_CPPFLAGS@ @LIBRDF_CPPFLAGS@ @LIBRDF_EXTERNAL_CPPFLAGS@
  AM_CFLAGS=@LIBRDF_INTERNAL_CPPFLAGS@ @LIBRDF_CPPFLAGS@ @LIBRDF_EXTERNAL_CPPFLAGS@ $(MEM)
  STANDARD_CFLAGS=@STANDARD_CFLAGS@ $(MEM)
 -AM_LDFLAGS=@LIBRDF_LDFLAGS@ @LIBRDF_EXTERNAL_LIBS@ $(MEM_LIBS)
 +AM_LDFLAGS=@LIBRDF_LDFLAGS@
  
- LOCAL_LIB_DIR=lib
+ AM_CPPFLAGS += -DPKGDATADIR="\"$(pkgdatadir)\""
  
 --- redland-1.0.5/configure.ac.orig	2006-10-23 05:18:47.000000000 +0200
 +++ redland-1.0.5/configure.ac	2007-02-03 16:29:30.057696634 +0100
@@ -46,14 +46,14 @@
        LIBRDF_CPPFLAGS="$LIBRDF_CPPFLAGS $nCPPFLAGS"
      fi
  
---- redland-1.0.5/redland-config.in.orig	2006-02-16 08:25:42.000000000 +0100
-+++ redland-1.0.5/redland-config.in	2007-02-03 16:29:38.302166460 +0100
-@@ -120,7 +120,7 @@
+--- redland-1.0.6/redland-config.in.orig	2007-05-02 07:17:27.000000000 +0200
++++ redland-1.0.6/redland-config.in	2007-05-12 00:53:52.531481323 +0200
+@@ -133,7 +133,7 @@
  fi
  
- if test "$echo_libs" = "yes"; then
--  echo -L@libdir@ -lrdf @LIBRDF_LDFLAGS@ @LIBRDF_EXTERNAL_LIBS@
-+  echo -L@libdir@ -lrdf @LIBRDF_EXTERNAL_LIBS@
+ if test "$echo_private_libs" = "yes"; then
+-  echo @LIBRDF_LDFLAGS@ @LIBRDF_EXTERNAL_LIBS@
++  echo @LIBRDF_EXTERNAL_LIBS@
  fi
  
- if test "$echo_libtool_libs" = "yes"; then
+ if test "$echo_swig" = "yes"; then  
