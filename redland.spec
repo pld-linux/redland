@@ -20,6 +20,7 @@ BuildRequires:	3store-devel < 3.0
 BuildRequires:	autoconf >= 2.53
 BuildRequires:	automake >= 1:1.7
 BuildRequires:	db-devel
+BuildRequires:	db-static
 BuildRequires:	libraptor-devel >= 1.4.15
 BuildRequires:	libtool
 BuildRequires:	mysql-devel >= 3.23.58
