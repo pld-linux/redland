@@ -20,7 +20,6 @@ BuildRequires:	3store-devel < 3.0
 BuildRequires:	autoconf >= 2.53
 BuildRequires:	automake >= 1:1.7
 BuildRequires:	db-devel
-BuildRequires:	db-static
 BuildRequires:	libraptor-devel >= 1.4.15
 BuildRequires:	libtool
 BuildRequires:	mysql-devel >= 3.23.58
@@ -29,6 +28,7 @@ BuildRequires:	pkgconfig
 BuildRequires:	postgresql-devel
 BuildRequires:	rasqal-devel >= 1:0.9.14
 BuildRequires:	rpmbuild(macros) >= 1.98
+BuildRequires:	sed >= 4.0
 BuildRequires:	sqlite3-devel >= 3
 Requires:	libraptor >= 1.4.15
 Requires:	rasqal >= 1:0.9.14
@@ -104,6 +104,8 @@ Pythonowy interfejs do biblioteki Redland RDF
 %setup -q
 %patch0 -p1
 
+sed -i -e 's,bdbc_prefix/lib$,bdbc_prefix/%{_lib},' configure.ac
+
 %build
 %{__libtoolize}
 %{__aclocal}
@@ -136,6 +138,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/rdfproc
 %attr(755,root,root) %{_bindir}/redland-db-upgrade
 %attr(755,root,root) %{_libdir}/librdf.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/librdf.so.0
 %dir %{_datadir}/redland
 %{_datadir}/redland/mysql-v*.ttl
 %{_mandir}/man1/rdfproc.1*
