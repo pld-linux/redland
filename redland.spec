@@ -7,7 +7,7 @@ Summary(pl.UTF-8):	Redland - biblioteka udostępniająca wysokopoziomowy interfe
 Name:		redland
 Version:	1.0.7
 Release:	1
-License:	LGPL v2.1+ or GPL v2+ or Apache 2.0
+License:	LGPL v2.1+ or GPL v2+ or Apache v2.0
 Group:		Libraries
 Source0:	http://download.librdf.org/source/%{name}-%{version}.tar.gz
 # Source0-md5:	4c066d3dcf6c25f8fb8c9007e73f293c
