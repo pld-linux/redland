@@ -151,7 +151,9 @@ sed -i -e 's,bdbc_prefix/lib$,bdbc_prefix/%{_lib},' configure.ac
 %{__autoheader}
 %{__automake}
 %configure \
+	--enable-ltdl-install=no \
 	--enable-modular \
+	--with-threads \
 	--with-html-dir=%{_gtkdocdir} \
 	--with-raptor=system \
 	--with-rasqal=system \
