@@ -141,7 +141,8 @@ RDF.
 %patch0 -p1
 %patch1 -p1
 
-sed -i -e 's,bdbc_prefix/lib$,bdbc_prefix/%{_lib},' configure.ac
+sed -i 's,bdbc_prefix/lib$,bdbc_prefix/%{_lib},' configure.ac
+sed -i 's,for bdbc_version in 4\.6,for bdbc_version in 4\.7 4\.6,' configure.ac
 
 %build
 %{__libtoolize}
