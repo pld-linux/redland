@@ -5,12 +5,12 @@
 Summary:	Redland - a library that provides a high-level interface for RDF
 Summary(pl.UTF-8):	Redland - biblioteka udostępniająca wysokopoziomowy interfejs do RDF
 Name:		redland
-Version:	1.0.7
-Release:	6
+Version:	1.0.8
+Release:	1
 License:	LGPL v2.1+ or GPL v2+ or Apache v2.0
 Group:		Libraries
 Source0:	http://download.librdf.org/source/%{name}-%{version}.tar.gz
-# Source0-md5:	4c066d3dcf6c25f8fb8c9007e73f293c
+# Source0-md5:	ca66e26082cab8bb817185a116db809b
 Patch0:		%{name}-link.patch
 Patch1:		%{name}-storage-file.patch
 URL:		http://librdf.org/
@@ -23,18 +23,18 @@ BuildRequires:	automake >= 1:1.7
 BuildRequires:	db-devel
 BuildRequires:	gtk-doc
 BuildRequires:	libltdl-devel
-BuildRequires:	libraptor-devel >= 1.4.16
+BuildRequires:	libraptor-devel >= 1.4.17
 BuildRequires:	libtool
 BuildRequires:	mysql-devel >= 3.23.58
 BuildRequires:	openssl-devel >= 0.9.7d
 BuildRequires:	pkgconfig
 BuildRequires:	postgresql-devel
-BuildRequires:	rasqal-devel >= 1:0.9.15
+BuildRequires:	rasqal-devel >= 1:0.9.16
 BuildRequires:	rpmbuild(macros) >= 1.98
 BuildRequires:	sed >= 4.0
 BuildRequires:	sqlite3-devel >= 3
-Requires:	libraptor >= 1.4.16
-Requires:	rasqal >= 1:0.9.15
+Requires:	libraptor >= 1.4.17
+Requires:	rasqal >= 1:0.9.16
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -63,8 +63,8 @@ Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	db-devel
 Requires:	libltdl-devel
-Requires:	libraptor-devel >= 1.4.16
-Requires:	rasqal-devel >= 1:0.9.15
+Requires:	libraptor-devel >= 1.4.17
+Requires:	rasqal-devel >= 1:0.9.16
 
 %description devel
 Headers for Redland RDF library.
