@@ -5,14 +5,16 @@
 Summary:	Redland - a library that provides a high-level interface for RDF
 Summary(pl.UTF-8):	Redland - biblioteka udostępniająca wysokopoziomowy interfejs do RDF
 Name:		redland
-Version:	1.0.8
-Release:	3
+Version:	1.0.9
+Release:	0.1
 License:	LGPL v2.1+ or GPL v2+ or Apache v2.0
 Group:		Libraries
 Source0:	http://download.librdf.org/source/%{name}-%{version}.tar.gz
-# Source0-md5:	ca66e26082cab8bb817185a116db809b
+# Source0-md5:	e5ef0c29c55b4f0f5aeed7955b4d383b
 Patch0:		%{name}-link.patch
 Patch1:		%{name}-storage-file.patch
+Patch2:		%{name}-librdf_storage_register_factory.patch
+Patch3:		%{name}-sqlite.patch
 URL:		http://librdf.org/
 %if %{with threestore}
 BuildRequires:	3store-devel >= 2.0
@@ -140,6 +142,8 @@ RDF.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
+%patch3 -p1
 
 sed -i 's,bdbc_prefix/lib$,bdbc_prefix/%{_lib},' configure.ac
 sed -i 's,for bdbc_version in 4\.6,for bdbc_version in 4\.7 4\.6,' configure.ac
@@ -160,7 +164,7 @@ sed -i 's,for bdbc_version in 4\.6,for bdbc_version in 4\.7 4\.6,' configure.ac
 	--with-rasqal=system \
 	--with%{!?with_threestore:out}-threestore
 
-%{__make}
+%{__make} -j1
 
 %install
 rm -rf $RPM_BUILD_ROOT
