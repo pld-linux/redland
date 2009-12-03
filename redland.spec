@@ -1,6 +1,6 @@
 #
 # Conditional build:
-%bcond_without	threestore	# with 3store
+%bcond_with	threestore	# with 3store
 #
 Summary:	Redland - a library that provides a high-level interface for RDF
 Summary(pl.UTF-8):	Redland - biblioteka udostępniająca wysokopoziomowy interfejs do RDF
