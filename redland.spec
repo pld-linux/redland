@@ -164,7 +164,7 @@ sed -i 's,for bdbc_version in 4\.6,for bdbc_version in 4\.7 4\.6,' configure.ac
 	--with-rasqal=system \
 	--with%{!?with_threestore:out}-threestore
 
-%{__make} -j1
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
