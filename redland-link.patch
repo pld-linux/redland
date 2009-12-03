@@ -8,4 +8,15 @@
 +  echo @LIBRDF_EXTERNAL_LIBS@
  fi
  
- if test "$echo_swig" = "yes"; then  
+ if test "$echo_swig" = "yes"; then
+--- redland-1.0.9/src/Makefile.am.orig	2009-12-03 00:36:17.658407858 +0100
++++ redland-1.0.9/src/Makefile.am	2009-12-03 00:37:28.227467072 +0100
+@@ -190,7 +190,7 @@
+ redland.spec redland.spec.in
+ 
+ librdf_la_LDFLAGS = -version-info @LIBRDF_LIBTOOL_VERSION@ \
+-@LIBRDF_LDFLAGS@ @LIBRDF_EXTERNAL_LIBS@ $(MEM_LIBS)
++@LIBRDF_EXTERNAL_LIBS@ $(MEM_LIBS)
+ 
+ pkgdata_DATA=
+ if STORAGE_MYSQL

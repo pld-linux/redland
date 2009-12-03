@@ -1,8 +1,8 @@
---- redland-1.0.7/librdf/Makefile.am.orig	2007-12-17 07:51:58.000000000 +0100
-+++ redland-1.0.7/librdf/Makefile.am	2008-01-06 21:01:48.587870130 +0100
-@@ -104,6 +104,12 @@
+--- redland-1.0.9/src/Makefile.am.old	2009-12-03 00:19:25.051648341 +0100
++++ redland-1.0.9/src/Makefile.am	2009-12-03 00:20:01.744463692 +0100
+@@ -115,6 +115,13 @@
  
- plugin_LTLIBRARIES =
+ plugin_LTLIBRARIES = 
  
 +if STORAGE_FILE
 +plugin_LTLIBRARIES += librdf_storage_file.la
@@ -10,6 +10,7 @@
 +librdf_storage_file_la_LDFLAGS = -module -avoid-version
 +librdf_storage_file_la_LIBADD = librdf.la
 +endif
++
  if STORAGE_TSTORE
  plugin_LTLIBRARIES += librdf_storage_tstore.la
  librdf_storage_tstore_la_SOURCES = rdf_storage_tstore.c
