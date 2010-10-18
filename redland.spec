@@ -5,16 +5,13 @@
 Summary:	Redland - a library that provides a high-level interface for RDF
 Summary(pl.UTF-8):	Redland - biblioteka udostępniająca wysokopoziomowy interfejs do RDF
 Name:		redland
-Version:	1.0.9
-Release:	6
+Version:	1.0.12
+Release:	1
 License:	LGPL v2.1+ or GPL v2+ or Apache v2.0
 Group:		Libraries
 Source0:	http://download.librdf.org/source/%{name}-%{version}.tar.gz
-# Source0-md5:	e5ef0c29c55b4f0f5aeed7955b4d383b
-Patch0:		%{name}-link.patch
+# Source0-md5:	40f37a5ad97fdfbf984f78dcea0c6115
 Patch1:		%{name}-storage-file.patch
-Patch2:		%{name}-librdf_storage_register_factory.patch
-Patch3:		%{name}-sqlite.patch
 URL:		http://librdf.org/
 %if %{with threestore}
 BuildRequires:	3store-devel >= 2.0
@@ -138,12 +135,22 @@ Requires:	%{name} = %{version}-%{release}
 Wtyczka przechowywania danych w bazie 3store dla biblioteki Redland
 RDF.
 
+%package storage-virtuoso
+Summary:	virtuoso storage plugin for Redland RDF library
+Summary(pl.UTF-8):	Wtyczka przechowywania danych w bazie virtuoso dla biblioteki Redland RDF
+Group:		Libraries
+Requires:	%{name} = %{version}-%{release}
+
+%description storage-virtuoso
+virtuoso storage plugin for Redland RDF library.
+
+%description storage-virtuoso -l pl.UTF-8
+Wtyczka przechowywania danych w bazie virtuoso dla biblioteki Redland
+RDF.
+
 %prep
 %setup -q
-%patch0 -p1
 %patch1 -p1
-%patch2 -p1
-%patch3 -p1
 
 sed -i 's,bdbc_prefix/lib$,bdbc_prefix/%{_lib},' configure.ac
 sed -i 's,for bdbc_version in 4\.6,for bdbc_version in 4\.7 4\.6,' configure.ac
@@ -224,6 +231,10 @@ rm -rf $RPM_BUILD_ROOT
 %files storage-sqlite
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/redland/librdf_storage_sqlite.so
+
+%files storage-virtuoso
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/redland/librdf_storage_virtuoso.so
 
 %if %{with threestore}
 %files storage-tstore
