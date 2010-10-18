@@ -22,18 +22,18 @@ BuildRequires:	automake >= 1:1.7
 BuildRequires:	db-devel
 BuildRequires:	gtk-doc
 BuildRequires:	libltdl-devel
-BuildRequires:	libraptor-devel >= 1.4.17
+BuildRequires:	libraptor-devel >= 1.4.19
 BuildRequires:	libtool
 BuildRequires:	mysql-devel >= 3.23.58
 BuildRequires:	openssl-devel >= 0.9.7d
 BuildRequires:	pkgconfig
 BuildRequires:	postgresql-devel
-BuildRequires:	rasqal-devel >= 1:0.9.16
+BuildRequires:	rasqal-devel >= 1:0.9.19
 BuildRequires:	rpmbuild(macros) >= 1.98
 BuildRequires:	sed >= 4.0
 BuildRequires:	sqlite3-devel >= 3
-Requires:	libraptor >= 1.4.17
-Requires:	rasqal >= 1:0.9.16
+Requires:	libraptor >= 1.4.19
+Requires:	rasqal >= 1:0.9.19
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -62,8 +62,8 @@ Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	db-devel
 Requires:	libltdl-devel
-Requires:	libraptor-devel >= 1.4.17
-Requires:	rasqal-devel >= 1:0.9.16
+Requires:	libraptor-devel >= 1.4.19
+Requires:	rasqal-devel >= 1:0.9.19
 
 %description devel
 Headers for Redland RDF library.
