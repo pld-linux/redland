@@ -11,7 +11,6 @@ License:	LGPL v2.1+ or GPL v2+ or Apache v2.0
 Group:		Libraries
 Source0:	http://download.librdf.org/source/%{name}-%{version}.tar.gz
 # Source0-md5:	40f37a5ad97fdfbf984f78dcea0c6115
-#Patch1:		%{name}-storage-file.patch
 URL:		http://librdf.org/
 %if %{with threestore}
 BuildRequires:	3store-devel >= 2.0
@@ -150,7 +149,6 @@ RDF.
 
 %prep
 %setup -q
-#%patch1 -p1
 
 sed -i 's,bdbc_prefix/lib$,bdbc_prefix/%{_lib},' configure.ac
 sed -i 's,for bdbc_version in 4\.6,for bdbc_version in 4\.7 4\.6,' configure.ac
@@ -195,7 +193,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/librdf.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/librdf.so.0
 %dir %{_libdir}/redland
-%attr(755,root,root) %{_libdir}/redland/librdf_storage_file.so
 %dir %{_datadir}/redland
 %{_datadir}/redland/mysql-v*.ttl
 %{_mandir}/man1/rdfproc.1*
