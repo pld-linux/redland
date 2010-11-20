@@ -31,6 +31,7 @@ BuildRequires:	rasqal-devel >= 1:0.9.19
 BuildRequires:	rpmbuild(macros) >= 1.98
 BuildRequires:	sed >= 4.0
 BuildRequires:	sqlite3-devel >= 3
+BuildRequires:	unixODBC-devel
 Requires:	libraptor >= 1.4.19
 Requires:	rasqal >= 1:0.9.19
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -151,7 +152,7 @@ RDF.
 %setup -q
 
 sed -i 's,bdbc_prefix/lib$,bdbc_prefix/%{_lib},' configure.ac
-sed -i 's,for bdbc_version in 4\.6,for bdbc_version in 4\.7 4\.6,' configure.ac
+sed -i 's,for bdbc_version in 4\.8,for bdbc_version in 5.0 4.8,' configure.ac
 
 %build
 %{__libtoolize}
@@ -161,12 +162,15 @@ sed -i 's,for bdbc_version in 4\.6,for bdbc_version in 4\.7 4\.6,' configure.ac
 %{__autoheader}
 %{__automake}
 %configure \
-	--enable-ltdl-install=no \
+	ac_cv_lib_iodbc_SQLConnect=no \
+	--disable-ltdl-install \
 	--enable-modular \
-	--with-threads \
 	--with-html-dir=%{_gtkdocdir} \
+	--with-odbc-inc=/usr/include \
+	--with-odbc-lib=/usr/%{_lib} \
 	--with-raptor=system \
 	--with-rasqal=system \
+	--with-threads \
 	--with%{!?with_threestore:out}-threestore
 
 %{__make}
