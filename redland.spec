@@ -5,35 +5,35 @@
 Summary:	Redland - a library that provides a high-level interface for RDF
 Summary(pl.UTF-8):	Redland - biblioteka udostępniająca wysokopoziomowy interfejs do RDF
 Name:		redland
-Version:	1.0.12
-Release:	2
+Version:	1.0.13
+Release:	1
 License:	LGPL v2.1+ or GPL v2+ or Apache v2.0
 Group:		Libraries
 Source0:	http://download.librdf.org/source/%{name}-%{version}.tar.gz
-# Source0-md5:	40f37a5ad97fdfbf984f78dcea0c6115
+# Source0-md5:	96c15f36f842ad7e1c9d225e4ca97b68
 URL:		http://librdf.org/
 %if %{with threestore}
 BuildRequires:	3store-devel >= 2.0
 BuildRequires:	3store-devel < 3.0
 %endif
 BuildRequires:	autoconf >= 2.53
-BuildRequires:	automake >= 1:1.7
+BuildRequires:	automake >= 1:1.11
 BuildRequires:	db-devel
 BuildRequires:	gtk-doc
 BuildRequires:	libltdl-devel
-BuildRequires:	libraptor-devel >= 1.4.19
-BuildRequires:	libtool
+BuildRequires:	libraptor2-devel >= 2.0.0
+BuildRequires:	libtool >= 2:2.0
 BuildRequires:	mysql-devel >= 3.23.58
 BuildRequires:	openssl-devel >= 0.9.7d
 BuildRequires:	pkgconfig
 BuildRequires:	postgresql-devel
-BuildRequires:	rasqal-devel >= 1:0.9.19
+BuildRequires:	rasqal-devel >= 1:0.9.22
 BuildRequires:	rpmbuild(macros) >= 1.98
 BuildRequires:	sed >= 4.0
 BuildRequires:	sqlite3-devel >= 3
 BuildRequires:	unixODBC-devel
-Requires:	libraptor >= 1.4.19
-Requires:	rasqal >= 1:0.9.19
+Requires:	libraptor2 >= 2.0.0
+Requires:	rasqal >= 1:0.9.22
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -62,8 +62,8 @@ Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	db-devel
 Requires:	libltdl-devel
-Requires:	libraptor-devel >= 1.4.19
-Requires:	rasqal-devel >= 1:0.9.19
+Requires:	libraptor2-devel >= 2.0.0
+Requires:	rasqal-devel >= 1:0.9.22
 
 %description devel
 Headers for Redland RDF library.
@@ -181,7 +181,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-rm -f $RPM_BUILD_ROOT%{_libdir}/redland/*.{la,a}
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/redland/*.{la,a}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
