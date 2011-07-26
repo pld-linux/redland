@@ -5,12 +5,12 @@
 Summary:	Redland - a library that provides a high-level interface for RDF
 Summary(pl.UTF-8):	Redland - biblioteka udostępniająca wysokopoziomowy interfejs do RDF
 Name:		redland
-Version:	1.0.13
-Release:	3
+Version:	1.0.14
+Release:	1
 License:	LGPL v2.1+ or GPL v2+ or Apache v2.0
 Group:		Libraries
 Source0:	http://download.librdf.org/source/%{name}-%{version}.tar.gz
-# Source0-md5:	96c15f36f842ad7e1c9d225e4ca97b68
+# Source0-md5:	3400579d137da82c4175debf9f6d53ba
 URL:		http://librdf.org/
 %if %{with threestore}
 BuildRequires:	3store-devel >= 2.0
@@ -21,7 +21,7 @@ BuildRequires:	automake >= 1:1.11
 BuildRequires:	db-devel
 BuildRequires:	gtk-doc
 BuildRequires:	libltdl-devel
-BuildRequires:	libraptor2-devel >= 2.0.0
+BuildRequires:	libraptor2-devel >= 2.0.4
 BuildRequires:	libtool >= 2:2.0
 BuildRequires:	mysql-devel >= 3.23.58
 BuildRequires:	openssl-devel >= 0.9.7d
@@ -32,7 +32,7 @@ BuildRequires:	rpmbuild(macros) >= 1.98
 BuildRequires:	sed >= 4.0
 BuildRequires:	sqlite3-devel >= 3
 BuildRequires:	unixODBC-devel
-Requires:	libraptor2 >= 2.0.0
+Requires:	libraptor2 >= 2.0.4
 Requires:	rasqal >= 1:0.9.22
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -62,7 +62,7 @@ Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	db-devel
 Requires:	libltdl-devel
-Requires:	libraptor2-devel >= 2.0.0
+Requires:	libraptor2-devel >= 2.0.4
 Requires:	rasqal-devel >= 1:0.9.22
 
 %description devel
