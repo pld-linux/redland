@@ -19,7 +19,7 @@ BuildRequires:	3store-devel < 3.0
 BuildRequires:	autoconf >= 2.53
 BuildRequires:	automake >= 1:1.11
 BuildRequires:	db-devel
-BuildRequires:	gtk-doc
+BuildRequires:	gtk-doc >= 1.3
 BuildRequires:	libltdl-devel
 BuildRequires:	libraptor2-devel >= 2.0.4
 BuildRequires:	libtool >= 2:2.0
@@ -27,13 +27,13 @@ BuildRequires:	mysql-devel >= 3.23.58
 BuildRequires:	openssl-devel >= 0.9.7d
 BuildRequires:	pkgconfig
 BuildRequires:	postgresql-devel
-BuildRequires:	rasqal-devel >= 1:0.9.22
+BuildRequires:	rasqal-devel >= 1:0.9.25
 BuildRequires:	rpmbuild(macros) >= 1.98
 BuildRequires:	sed >= 4.0
 BuildRequires:	sqlite3-devel >= 3
 BuildRequires:	unixODBC-devel
 Requires:	libraptor2 >= 2.0.4
-Requires:	rasqal >= 1:0.9.22
+Requires:	rasqal >= 1:0.9.25
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -63,7 +63,7 @@ Requires:	%{name} = %{version}-%{release}
 Requires:	db-devel
 Requires:	libltdl-devel
 Requires:	libraptor2-devel >= 2.0.4
-Requires:	rasqal-devel >= 1:0.9.22
+Requires:	rasqal-devel >= 1:0.9.25
 
 %description devel
 Headers for Redland RDF library.
@@ -152,7 +152,6 @@ RDF.
 %setup -q
 
 sed -i 's,bdbc_prefix/lib$,bdbc_prefix/%{_lib},' configure.ac
-sed -i 's,for bdbc_version in 4\.8,for bdbc_version in 5.0 4.8,' configure.ac
 
 %build
 %{__libtoolize}
