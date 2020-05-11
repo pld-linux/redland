@@ -1,8 +1,8 @@
 #
 # Conditional build:
-%bcond_without	mysql		# without mysql
-%bcond_without	postgresql	# without postgresql
-%bcond_with	threestore	# with 3store
+%bcond_without	mysql		# MySQL support
+%bcond_without	pgsql		# PostgreSQL support
+%bcond_with	threestore	# 3store support
 #
 Summary:	Redland - a library that provides a high-level interface for RDF
 Summary(pl.UTF-8):	Redland - biblioteka udostępniająca wysokopoziomowy interfejs do RDF
@@ -28,7 +28,7 @@ BuildRequires:	libtool >= 2:2.0
 %{?with_mysql:BuildRequires:	mysql-devel >= 3.23.58}
 BuildRequires:	openssl-devel >= 0.9.7d
 BuildRequires:	pkgconfig
-%{?with_postgresql:BuildRequires:	postgresql-devel}
+%{?with_pgsql:BuildRequires:	postgresql-devel}
 BuildRequires:	rasqal-devel >= 1:0.9.25
 BuildRequires:	rpmbuild(macros) >= 1.98
 BuildRequires:	sed >= 4.0
@@ -176,7 +176,7 @@ cd ..
         %{!?with_mysql:--with-mysql=no} \
 	--with-odbc-inc=/usr/include \
 	--with-odbc-lib=/usr/%{_lib} \
-        %{!?with_postgresql:--with-postgresql=no} \
+        %{!?with_pgsql:--with-postgresql=no} \
 	--with-raptor=system \
 	--with-rasqal=system \
 	--with-threads \
@@ -236,7 +236,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/redland/librdf_storage_mysql.so
 %endif
 
-%if %{with postgresql}
+%if %{with pgsql}
 %files storage-postgresql
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/redland/librdf_storage_postgresql.so
