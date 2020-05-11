@@ -1,5 +1,7 @@
 #
 # Conditional build:
+%bcond_without	mysql		# without mysql
+%bcond_without	postgresql	# without postgresql
 %bcond_with	threestore	# with 3store
 #
 Summary:	Redland - a library that provides a high-level interface for RDF
@@ -23,10 +25,10 @@ BuildRequires:	gtk-doc >= 1.3
 BuildRequires:	libltdl-devel >= 2:2.0
 BuildRequires:	libraptor2-devel >= 2.0.7
 BuildRequires:	libtool >= 2:2.0
-BuildRequires:	mysql-devel >= 3.23.58
+%{?with_mysql:BuildRequires:	mysql-devel >= 3.23.58}
 BuildRequires:	openssl-devel >= 0.9.7d
 BuildRequires:	pkgconfig
-BuildRequires:	postgresql-devel
+%{?with_postgresql:BuildRequires:	postgresql-devel}
 BuildRequires:	rasqal-devel >= 1:0.9.25
 BuildRequires:	rpmbuild(macros) >= 1.98
 BuildRequires:	sed >= 4.0
@@ -171,8 +173,10 @@ cd ..
 	--disable-ltdl-install \
 	--enable-modular \
 	--with-html-dir=%{_gtkdocdir} \
+        %{!?with_mysql:--with-mysql=no} \
 	--with-odbc-inc=/usr/include \
 	--with-odbc-lib=/usr/%{_lib} \
+        %{!?with_postgresql:--with-postgresql=no} \
 	--with-raptor=system \
 	--with-rasqal=system \
 	--with-threads \
@@ -203,7 +207,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %ghost %{_libdir}/librdf.so.0
 %dir %{_libdir}/redland
 %dir %{_datadir}/redland
-%{_datadir}/redland/mysql-v*.ttl
+%{?with_mysql:%{_datadir}/redland/mysql-v*.ttl}
 %{_mandir}/man1/rdfproc.1*
 %{_mandir}/man1/redland-db-upgrade.1*
 
@@ -226,13 +230,17 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_libdir}/librdf.a
 
+%if %{with mysql}
 %files storage-mysql
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/redland/librdf_storage_mysql.so
+%endif
 
+%if %{with postgresql}
 %files storage-postgresql
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/redland/librdf_storage_postgresql.so
+%endif
 
 %files storage-sqlite
 %defattr(644,root,root,755)
