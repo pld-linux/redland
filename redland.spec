@@ -8,11 +8,12 @@ Summary:	Redland - a library that provides a high-level interface for RDF
 Summary(pl.UTF-8):	Redland - biblioteka udostępniająca wysokopoziomowy interfejs do RDF
 Name:		redland
 Version:	1.0.17
-Release:	4
+Release:	5
 License:	LGPL v2.1+ or GPL v2+ or Apache v2.0
 Group:		Libraries
 Source0:	http://download.librdf.org/source/%{name}-%{version}.tar.gz
 # Source0-md5:	e5be03eda13ef68aabab6e42aa67715e
+Patch0:		%{name}-LDFLAGS.patch
 URL:		http://librdf.org/
 %if %{with threestore}
 BuildRequires:	3store-devel >= 2.0
@@ -152,6 +153,7 @@ RDF.
 
 %prep
 %setup -q
+%patch0 -p1
 
 sed -i 's,bdbc_prefix/lib$,bdbc_prefix/%{_lib},' configure.ac
 
@@ -180,7 +182,7 @@ cd ..
 	--with-raptor=system \
 	--with-rasqal=system \
 	--with-threads \
-	--with%{!?with_threestore:out}-threestore
+	--with-threestore%{!?with_threestore:=no}
 
 %{__make}
 
@@ -190,7 +192,10 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
+# dlopened modules
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/redland/*.{la,a}
+# obsoleted by redland.pc
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/librdf.la
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -216,7 +221,6 @@ rm -rf $RPM_BUILD_ROOT
 %doc docs/{README.html,storage.html}
 %attr(755,root,root) %{_bindir}/redland-config
 %attr(755,root,root) %{_libdir}/librdf.so
-%{_libdir}/librdf.la
 %{_includedir}/librdf.h
 %{_includedir}/rdf_*.h
 %{_includedir}/redland.h

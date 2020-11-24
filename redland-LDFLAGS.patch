@@ -1,0 +1,20 @@
+--- redland-1.0.17/configure.ac.orig	2020-11-23 22:18:01.581515208 +0100
++++ redland-1.0.17/configure.ac	2020-11-23 22:23:29.336406274 +0100
+@@ -378,7 +378,7 @@
+   AC_MSG_RESULT($bdb_include_dir)
+ 
+   if test "$bdb_prefix" != no; then
+-    nLDFLAGS=$LDFLAGS
++    nLDFLAGS=
+     nCPPFLAGS=
+ 
+     if test "$bdb_lib_dir" != /usr/lib; then
+--- redland-1.0.17/redland.pc.in.orig	2011-01-21 16:56:38.000000000 +0100
++++ redland-1.0.17/redland.pc.in	2020-11-24 06:28:44.982006620 +0100
+@@ -14,5 +14,5 @@
+ Requires.private: raptor2 >= @RAPTOR_MIN_VERSION@, rasqal >= @RASQAL_MIN_VERSION@, rasqal <= @RASQAL_MAX_VERSION@
+ Version: @VERSION@
+ Libs: -L${libdir} -lrdf
+-Libs.private: @LIBRDF_LDFLAGS@ @LIBRDF_PKGCONFIG_PRIVATE_LIBS@
++Libs.private: @LIBRDF_PKGCONFIG_PRIVATE_LIBS@
+ Cflags: -I${includedir}
