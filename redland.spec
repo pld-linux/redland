@@ -153,7 +153,7 @@ RDF.
 
 %prep
 %setup -q
-%patch0 -p1
+%patch -P0 -p1
 
 sed -i 's,bdbc_prefix/lib$,bdbc_prefix/%{_lib},' configure.ac
 
